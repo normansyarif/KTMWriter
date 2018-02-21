@@ -18,7 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
-public class WriterActivity extends AppCompatActivity {
+public class ActWriter extends AppCompatActivity {
     NfcAdapter nfcAdapter;
     EditText nimInput;
 
@@ -29,16 +29,6 @@ public class WriterActivity extends AppCompatActivity {
 
         nimInput = findViewById(R.id.nimInput);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-    }
-
-    /**
-     *  Returns a unique token generated based on inserted student number (NIM).
-     *  @param nim A string of student number.
-     *  @return token
-     */
-    private String generateToken(String nim) {
-        String token = EncryptLibrary.encrypt(nim, "1234567890123456");
-        return token.substring(0, token.length() - 2);
     }
 
     // This method is executed every time a new card is detected
@@ -54,11 +44,22 @@ public class WriterActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *  Returns a unique token generated based on inserted student number (NIM).
+     *  @param nim A string of student number.
+     *  @return token
+     */
+    private String generateToken(String nim) {
+        String token = EncryptLibrary.encrypt(nim, "1234567890123456");
+        return token.substring(0, token.length() - 2);
+    }
+
+
     /* NFC HANDLING METHODS */
 
     // Listener
     private void enableFDS() {
-        Intent intent = new Intent(this, WriterActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        Intent intent = new Intent(this, ActWriter.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         IntentFilter[] intentFilters = new IntentFilter[]{};
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters,null);
