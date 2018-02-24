@@ -38,20 +38,9 @@ public class ActWriter extends AppCompatActivity {
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             String nim = nimInput.getText().toString().toUpperCase();
-            NdefMessage ndefMessage = createNdefMessage(generateToken(nim));
+            NdefMessage ndefMessage = createNdefMessage(EncryptLibrary.encrypt(nim, "1234567890123456"));
             writeNdefMessage(tag, ndefMessage);
         }
-    }
-
-
-    /**
-     *  Returns a unique token generated based on inserted student number (NIM).
-     *  @param nim A string of student number.
-     *  @return token
-     */
-    private String generateToken(String nim) {
-        String token = EncryptLibrary.encrypt(nim, "1234567890123456");
-        return token.substring(0, token.length() - 2);
     }
 
 
@@ -140,7 +129,6 @@ public class ActWriter extends AppCompatActivity {
         }
         return null;
     }
-
 
     @Override
     protected void onResume() {
