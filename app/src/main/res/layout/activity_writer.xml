@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context="id.ac.unja.si.ktmwriter.ActWriter">
+    tools:context="id.ac.unja.si.ktmwriter.act.MainActivity">
 
     <EditText
         android:id="@+id/nimInput"

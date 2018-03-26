@@ -1,4 +1,4 @@
-package id.ac.unja.si.ktmwriter;
+package id.ac.unja.si.ktmwriter.com;
 
 import android.util.Log;
 
@@ -11,8 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by norman on 2/19/18.
  */
 
-class EncryptLibrary {
-    static String encrypt(String input, String key){
+public class EncryptionLibrary {
+    public static String encrypt(String input, String key){
         byte[] crypted;
         try{
             SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");

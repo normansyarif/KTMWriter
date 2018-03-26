@@ -1,4 +1,4 @@
-package id.ac.unja.si.ktmwriter;
+package id.ac.unja.si.ktmwriter.act;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -18,7 +18,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
-public class ActWriter extends AppCompatActivity {
+import id.ac.unja.si.ktmwriter.com.EncryptionLibrary;
+import id.ac.unja.si.ktmwriter.R;
+
+public class MainActivity extends AppCompatActivity {
     NfcAdapter nfcAdapter;
     EditText nimInput;
 
@@ -38,7 +41,7 @@ public class ActWriter extends AppCompatActivity {
         if(intent.hasExtra(NfcAdapter.EXTRA_TAG)) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             String nim = nimInput.getText().toString().toUpperCase();
-            NdefMessage ndefMessage = createNdefMessage(EncryptLibrary.encrypt(nim, "1234567890123456"));
+            NdefMessage ndefMessage = createNdefMessage(EncryptionLibrary.encrypt(nim, "1234567890123456"));
             writeNdefMessage(tag, ndefMessage);
         }
     }
@@ -48,7 +51,7 @@ public class ActWriter extends AppCompatActivity {
 
     // Listener
     private void enableFDS() {
-        Intent intent = new Intent(this, ActWriter.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         IntentFilter[] intentFilters = new IntentFilter[]{};
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters,null);
